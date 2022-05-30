@@ -118,6 +118,11 @@ namespace SkalProj_Datastrukturer_Minne
              Console.WriteLine($"List count:{theList.Count}, List capacity:{theList.Capacity}");
         }
 
+        private static void OutputCount(Stack<char> stack)
+        {
+            Console.WriteLine($"Stack count:{stack.Count}");
+        }
+
         private static void OutputCount(Queue<string> icaQueue)
         {
             //Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
@@ -226,12 +231,45 @@ namespace SkalProj_Datastrukturer_Minne
             while (input != "0");
         }
 
+        static void ReverseText(string input)
+        {
+            Console.WriteLine("A new stack has been created");
+            Stack<char> charStack = new();
+            OutputCount(charStack);
+            foreach (char c in input)
+                charStack.Push(c);
+
+            while (charStack.Count > 0)
+                Console.Write(charStack.Pop());
+            Console.WriteLine();
+            OutputCount(charStack);
+        }
+
         /// <summary>
         /// Examines the datastructure Stack
         /// </summary>
         static void ExamineStack()
         {
-            //1. För att vi måste då lagra personerna vi tar bort med pop någon annanstans till det är deras tur och det blir krångligt att hålla reda på vems tur det är
+            //1. För att vi måste då lagra personerna vi tar bort med pop någon annanstans till det är deras tur och det blir krångligt att hålla reda på vems tur det är         
+            //Loop this method untill the user inputs something to exit to main menue.
+            string input = ""; //Creates the character input to be used with the switch-case below.
+            do
+            {
+                Console.WriteLine("Write text to reverse the text");
+                Console.WriteLine("0.Exit to main menu");
+                try
+                {
+                    input = Console.ReadLine()!; //Tries to set input to the first char in an input line 
+                }
+                catch (IndexOutOfRangeException) //If the input line is empty, we ask the users for some input.
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please enter some input!");
+                }
+                ReverseText(input);
+            }
+            while (input != "0");
+
             /*
              * Loop this method until the user inputs something to exit to main menue.
              * Create a switch with cases to push or pop items
