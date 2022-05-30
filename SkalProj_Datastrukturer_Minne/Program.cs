@@ -232,7 +232,7 @@ namespace SkalProj_Datastrukturer_Minne
         }
 
         static void ReverseText(string input)
-        {
+        { 
             Console.WriteLine("A new stack has been created");
             Stack<char> charStack = new();
             OutputCount(charStack);
@@ -243,6 +243,50 @@ namespace SkalProj_Datastrukturer_Minne
                 Console.Write(charStack.Pop());
             Console.WriteLine();
             OutputCount(charStack);
+        }
+
+        static bool isValidParantheses(string input)
+        {
+            Stack<char> lastOpen = new Stack<char>();
+            foreach (var c in input)
+            {
+                switch (c)
+                {
+                    case ')':
+                        if (lastOpen.Count == 0 || lastOpen.Pop() != '(')
+                            return false;
+
+                        break;
+
+                    case ']':
+                        if (lastOpen.Count == 0 || lastOpen.Pop() != '[')
+                            return false;
+
+                        break;
+
+                    case '}':
+                        if (lastOpen.Count == 0 || lastOpen.Pop() != '{')
+                            return false;
+
+                        break;
+
+                    case '(':
+                        lastOpen.Push(c);
+                        break;
+
+                    case '[':
+                        lastOpen.Push(c);
+                        break;
+
+                    case '{':
+                        lastOpen.Push(c);
+                        break;
+                }
+            }
+            if (lastOpen.Count == 0)
+                return true;
+            else
+                return false;
         }
 
         /// <summary>
@@ -279,6 +323,29 @@ namespace SkalProj_Datastrukturer_Minne
 
         static void CheckParanthesis()
         {
+            //man får inte avsluta en typ av parantesslut innan tidigare öppnade parantesslut
+            //1. För att vi måste då lagra personerna vi tar bort med pop någon annanstans till det är deras tur och det blir krångligt att hålla reda på vems tur det är         
+            //Loop this method untill the user inputs something to exit to main menue.
+            string input = ""; //Creates the character input to be used with the switch-case below.
+            do
+            {
+                Console.WriteLine("Write text to check validity of parantheses");
+                Console.WriteLine("0.Exit to main menu");
+                try
+                {
+                    input = Console.ReadLine()!; //Tries to set input to the first char in an input line 
+                }
+                catch (IndexOutOfRangeException) //If the input line is empty, we ask the users for some input.
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please enter some input!");
+                }
+                if(isValidParantheses(input))
+                    Console.WriteLine("Yup, parantheses are fine");
+                else
+                    Console.WriteLine("Nope, parantheses are wrong");
+            }
+            while (input != "0");            
             /*
              * Use this method to check if the paranthesis in a string is Correct or incorrect.
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
