@@ -245,9 +245,9 @@ namespace SkalProj_Datastrukturer_Minne
             OutputCount(charStack);
         }
 
-        static bool isValidParantheses(string input)
+        static bool IsValidParantheses(string input)
         {
-            Stack<char> lastOpen = new Stack<char>();
+            Stack<char> lastOpen = new();
             foreach (var c in input)
             {
                 switch (c)
@@ -340,7 +340,7 @@ namespace SkalProj_Datastrukturer_Minne
                     Console.Clear();
                     Console.WriteLine("Please enter some input!");
                 }
-                if(isValidParantheses(input))
+                if(IsValidParantheses(input))
                     Console.WriteLine("Yup, parantheses are fine");
                 else
                     Console.WriteLine("Nope, parantheses are wrong");
